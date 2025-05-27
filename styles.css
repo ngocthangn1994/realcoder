@@ -1,0 +1,182 @@
+
+/* === TO-DO LIST STYLES === */
+
+.todolist {
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  max-width: 480px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.todolist h1 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #444;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#input {
+  flex-grow: 1;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #e3e3e3;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+#input:focus {
+  outline: none;
+  border-color: #9c27b0;
+}
+
+#addButton {
+  padding: 12px 20px;
+  background-color: #9c27b0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#addButton:hover {
+  background-color: #7b1fa2;
+}
+
+ul#taskList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem;
+}
+
+ul#taskList li {
+  background-color: #f8f9fa;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-left: 5px solid transparent;
+  border-radius: 10px;
+  font-size: 16px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+ul#taskList li:hover {
+  background-color: #f1f3f5;
+  border-left: 5px solid #9c27b0;
+}
+
+ul#taskList li.completed {
+  text-decoration: line-through;
+  color: #aaa;
+  background-color: #e1f5e9;
+  border-left: 5px solid #4caf50;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #8360c3, #2ebf91);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* === App Container === */
+.container_Node {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 30px 25px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 480px;
+}
+
+/* === Heading === */
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* === Input Box === */
+textarea {
+  width: 100%;
+  height: 300px;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  resize: none;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #6a1b9a;
+}
+
+/* === Add Note Button === */
+button {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background-color: #6a1b9a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #4a148c;
+}
+
+/* === Notes List === */
+/* === Notes List Item === */
+.note {
+  position: relative;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 12px 40px 12px 16px; /* extra right padding for button space */
+  margin-top: 15px;
+  font-size: 15px;
+  color: #444;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  word-wrap: break-word;
+}
+
+.note:hover {
+  border-left: 5px solid #6a1b9a;
+}
+
+/* === Delete Button inside .note === */
+.note button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}

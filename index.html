@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To Do List</title>
+  <link rel="stylesheet" href="/todolist/styles.css">
+</head>
+<body>
+  <div class="box">
+     <div id="container_header">
+        <h1>To Do List Application</h1>
+        <label>Type here: <input id="input" placeholder="Note...."> <button id="addButton" onclick="addTask()">Add Now</button></label>
+      </div>
+      <div>
+        <ul id="taskList"></ul>
+      </div>
+         <div class="container_Node">
+        <h1>Sticky Notes</h1>
+        <textarea class="textarea" id="textarea" placeholder="Type note here..."></textarea>
+        <button onclick="addNote()">Add Notes</button>
+        <div id="listNote"></div>
+    </div>
+  </div>
+  <script src="/todolist/script.js"></script>
+</body>
+</html>
