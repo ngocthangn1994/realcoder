@@ -1,11 +1,19 @@
 import { Schema, model, Types } from 'mongoose';
 
-const schema = new Schema({
-  userId: { type: Types.ObjectId, ref: 'User', required: true },
-  assistantId: { type: Types.ObjectId, ref: 'User', required: true },
-  senderRole: String,
-  content: String,
-  createdAt: { type: Date, default: Date.now }
-});
+export interface IMessage {
+  userId: Types.ObjectId;
+  assistantId: Types.ObjectId;
+  senderRole: 'client' | 'assistant' | 'admin';
+  content: string;
+  createdAt: Date;
+}
 
-export const Message = model('Message', schema);
+const schema = new Schema<IMessage>({
+  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  assistantId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  senderRole: { type: String, enum: ['client', 'assistant', 'admin'], required: true },
+  content: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
+}, { timestamps: false });
+
+export const Message = model<IMessage>('Message', schema);

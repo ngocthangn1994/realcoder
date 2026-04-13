@@ -1,29 +1,22 @@
 import { Request, Response } from 'express';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import { User } from '../models/User';
-import { env } from '../config/env';
+import { z } from 'zod';
 import { asyncHandler } from '../utils/asyncHandler';
-
-const signToken = (id: string, role: string) => jwt.sign({ id, role }, env.JWT_SECRET, { expiresIn: '7d' });
+import { loginUser, registerUser } from '../services/auth/auth.service';
+import { User } from '../models/User';
 
 export const register = asyncHandler(async (req: Request, res: Response) => {
-  const { fullName, email, password } = req.body;
-  const existing = await User.findOne({ email });
-  if (existing) return res.status(400).json({ message: 'Email already in use' });
-  const passwordHash = await bcrypt.hash(password, 10);
-  const user = await User.create({ fullName, email, passwordHash, role: 'client' });
-  res.status(201).json({ token: signToken(String(user._id), user.role), user });
+  const body = z.object({ fullName: z.string().min(2), email: z.string().email(), password: z.string().min(8) }).parse(req.body);
+  const result = await registerUser(body.fullName, body.email, body.password);
+  res.status(201).json(result);
 });
 
 export const login = asyncHandler(async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (!user || !(await bcrypt.compare(password, user.passwordHash))) return res.status(401).json({ message: 'Invalid credentials' });
-  res.json({ token: signToken(String(user._id), user.role), user });
+  const body = z.object({ email: z.string().email(), password: z.string().min(8) }).parse(req.body);
+  const result = await loginUser(body.email, body.password);
+  res.json(result);
 });
 
 export const me = asyncHandler(async (req: Request, res: Response) => {
-  const user = await User.findById(req.user?.id).select('-passwordHash');
+  const user = await User.findById(req.user?.userId).select('-passwordHash');
   res.json(user);
 });

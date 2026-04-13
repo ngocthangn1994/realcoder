@@ -1,10 +1,17 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
-const schema = new Schema({
-  name: String,
-  priceMonthly: Number,
-  maxApplicationsPerMonth: Number,
-  features: [String]
-});
+export interface ISubscriptionPlan {
+  name: string;
+  priceMonthly: number;
+  maxApplicationsPerMonth: number;
+  features: string[];
+}
 
-export const SubscriptionPlan = model('SubscriptionPlan', schema);
+const schema = new Schema<ISubscriptionPlan>({
+  name: { type: String, required: true },
+  priceMonthly: { type: Number, required: true },
+  maxApplicationsPerMonth: { type: Number, required: true },
+  features: { type: [String], default: [] }
+}, { timestamps: true });
+
+export const SubscriptionPlan = model<ISubscriptionPlan>('SubscriptionPlan', schema);

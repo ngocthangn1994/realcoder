@@ -3,11 +3,15 @@ import { ClientProfile } from '../models/ClientProfile';
 import { asyncHandler } from '../utils/asyncHandler';
 
 export const getMyProfile = asyncHandler(async (req: Request, res: Response) => {
-  const profile = await ClientProfile.findOne({ userId: req.user?.id });
+  const profile = await ClientProfile.findOne({ userId: req.user?.userId });
   res.json(profile);
 });
 
-export const upsertMyProfile = asyncHandler(async (req: Request, res: Response) => {
-  const profile = await ClientProfile.findOneAndUpdate({ userId: req.user?.id }, { ...req.body, userId: req.user?.id }, { new: true, upsert: true });
+export const updateMyProfile = asyncHandler(async (req: Request, res: Response) => {
+  const profile = await ClientProfile.findOneAndUpdate(
+    { userId: req.user?.userId },
+    req.body,
+    { upsert: true, new: true }
+  );
   res.json(profile);
 });

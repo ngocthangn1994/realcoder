@@ -1,8 +1,7 @@
 import { Router } from 'express';
-import { getMyProfile, upsertMyProfile } from '../controllers/profileController';
+import { getMyProfile, updateMyProfile } from '../controllers/profileController';
 
 const router = Router();
 router.get('/me', getMyProfile);
-router.put('/me', upsertMyProfile);
-
+router.put('/me', updateMyProfile);
 export default router;
