@@ -1,0 +1,3 @@
+import { AppShell } from '@/components/dashboard/app-shell';
+const links=[{href:'/client/dashboard',label:'Dashboard'},{href:'/client/jobs',label:'Jobs'},{href:'/client/inbox',label:'Inbox'},{href:'/client/inbox/chat',label:'Team Chat'},{href:'/client/resumes',label:'Resumes & More'},{href:'/client/plans',label:'Plans'},{href:'/client/billing',label:'Billing'},{href:'/client/account',label:'Account'}];
+export default function Page(){return <AppShell title="Billing" links={links}><div className="rounded-xl border bg-white p-4">Mock/Stripe-ready billing history, invoices, and subscription controls.</div></AppShell>}

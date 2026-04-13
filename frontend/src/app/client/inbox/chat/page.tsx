@@ -1,0 +1,3 @@
+import { AppShell } from '@/components/dashboard/app-shell';
+const links=[{href:'/client/dashboard',label:'Dashboard'},{href:'/client/jobs',label:'Jobs'},{href:'/client/inbox',label:'Inbox'},{href:'/client/inbox/chat',label:'Team Chat'},{href:'/client/resumes',label:'Resumes & More'},{href:'/client/plans',label:'Plans'},{href:'/client/billing',label:'Billing'},{href:'/client/account',label:'Account'}];
+export default function Page(){return <AppShell title="Team Chat" links={links}><div className="rounded-xl border bg-white p-4"><p className="text-sm">Chat with your assigned assistant in real time, share documents, and request updates.</p><div className="mt-4 h-56 rounded border p-2">[Socket.IO chat panel]</div></div></AppShell>}
