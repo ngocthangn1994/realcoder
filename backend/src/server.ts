@@ -10,18 +10,20 @@ import resumeRoutes from './routes/resumeRoutes';
 import aiRoutes from './routes/aiRoutes';
 import applicationRoutes from './routes/applicationRoutes';
 import adminRoutes from './routes/adminRoutes';
+import platformRoutes from './routes/platformRoutes';
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 
-app.get('/health', (_req, res) => res.json({ ok: true }));
-app.use('/api/auth', authRoutes);
-app.use('/api/profile', requireAuth, profileRoutes);
-app.use('/api/resume', requireAuth, resumeRoutes);
-app.use('/api/ai', requireAuth, aiRoutes);
-app.use('/api/applications', requireAuth, applicationRoutes);
-app.use('/api/admin', requireAuth, adminRoutes);
+app.get('/health', (_req, res) => res.json({ ok: true, service: 'applyflow-api' }));
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/profile', requireAuth, profileRoutes);
+app.use('/api/v1/resumes', requireAuth, resumeRoutes);
+app.use('/api/v1/ai', requireAuth, aiRoutes);
+app.use('/api/v1/applications', requireAuth, applicationRoutes);
+app.use('/api/v1/admin', requireAuth, adminRoutes);
+app.use('/api/v1', platformRoutes);
 
 app.use(errorMiddleware);
 

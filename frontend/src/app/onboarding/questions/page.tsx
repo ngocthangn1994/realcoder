@@ -1,0 +1,2 @@
+import { onboardingQuestions } from '@/mock/app-data';
+export default function Page(){return <main className="mx-auto max-w-3xl p-8"><h1 className="text-2xl font-bold">Application Answers</h1><div className="mt-6 space-y-4">{onboardingQuestions.map((q,i)=><label key={q} className="block"><p className="mb-1 text-sm">{i+1}. {q}</p><input className="w-full rounded-lg border p-2"/></label>)}</div></main>}

@@ -1,0 +1,3 @@
+import { AppShell } from '@/components/dashboard/app-shell';
+const links=[{href:'/assistant/dashboard',label:'Dashboard'},{href:'/assistant/clients',label:'Assigned Clients'},{href:'/assistant/jobs',label:'Delegated Jobs'},{href:'/assistant/tasks',label:'Tasks'},{href:'/assistant/chat',label:'Team Chat'},{href:'/assistant/reports',label:'Reports'}];
+export default function Page(){return <AppShell title="Assistant Dashboard" links={links}><div className="grid gap-4 md:grid-cols-4">{['Active clients','Pending delegated','Due today','Blocked'].map(k=><div key={k} className="rounded-xl border bg-white p-4">{k}</div>)}</div></AppShell>}

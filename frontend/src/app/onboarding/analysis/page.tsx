@@ -1,0 +1,2 @@
+const states=['Analyzing experience','Extracting skills','Mapping education','Identifying strengths','Finding matching roles'];
+export default function Page(){return <main className="mx-auto max-w-3xl p-8"><h1 className="text-2xl font-bold">AI Analysis in progress</h1><div className="mt-6 space-y-3">{states.map(s=><div key={s} className="rounded-lg border bg-white p-3">{s}...</div>)}</div></main>}

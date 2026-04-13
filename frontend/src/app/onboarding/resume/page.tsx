@@ -1,0 +1,1 @@
+export default function Page(){return <main className="mx-auto max-w-3xl p-8"><h1 className="text-2xl font-bold">Upload Resume</h1><div className="mt-5 rounded-xl border-2 border-dashed p-10 text-center">Drop PDF here (max 5MB)</div><button className="mt-6 rounded-lg bg-emerald-800 px-4 py-2 text-white">Upload and parse</button></main>}

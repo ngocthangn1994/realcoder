@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function Page(){return <main className="mx-auto max-w-3xl p-8"><h1 className="text-3xl font-bold">Welcome to ApplyFlow</h1><p className="mt-3">Your account is ready. Next, upload your resume so AI + human assistants can start matching roles.</p><Link href="/onboarding/resume" className="mt-6 inline-block rounded-lg bg-emerald-800 px-4 py-2 text-white">Continue</Link></main>}

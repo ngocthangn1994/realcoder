@@ -1,0 +1,6 @@
+import { AppShell } from '@/components/dashboard/app-shell';
+import { dashboardStats } from '@/mock/app-data';
+
+const links=[{href:'/client/dashboard',label:'Dashboard'},{href:'/client/jobs',label:'Jobs'},{href:'/client/inbox',label:'Inbox'},{href:'/client/inbox/chat',label:'Team Chat'},{href:'/client/resumes',label:'Resumes & More'},{href:'/client/plans',label:'Plans'},{href:'/client/billing',label:'Billing'},{href:'/client/account',label:'Account'}];
+
+export default function Page(){return <AppShell title="Client Dashboard" links={links}><div className="grid gap-4 md:grid-cols-3">{dashboardStats.map(s=><div key={s.label} className="rounded-xl border bg-white p-4"><p className="text-sm text-slate-500">{s.label}</p><p className="text-2xl font-bold">{s.value}</p></div>)}</div><div className="mt-4 grid gap-4 md:grid-cols-2"><div className="rounded-xl border bg-white p-4"><h3 className="font-semibold">AI Resume Summary</h3><p className="mt-2 text-sm">Strong full-stack profile with experience in React, Node.js and scalable APIs.</p></div><div className="rounded-xl border bg-white p-4"><h3 className="font-semibold">Human Assistant Service</h3><p className="mt-2 text-sm">Assistant assigned: Mason Assistant. 3 delegated jobs in progress.</p></div></div></AppShell>}
