@@ -6,18 +6,18 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          50: '#edfcf4',
-          100: '#d5f9e3',
-          500: '#17a561',
-          700: '#0d6a3d'
+          50: '#f0fdf4',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d'
         }
       },
       boxShadow: {
         soft: '0 8px 30px rgba(2, 6, 23, 0.08)'
       }
-    }
+    },
   },
-  plugins: []
+  plugins: [],
 };
 
 export default config;

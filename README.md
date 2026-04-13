@@ -1,66 +1,53 @@
-# ApplyFlow MVP Starter
+# ApplyFlow Monorepo MVP
 
-ApplyFlow is an **AI-powered job application concierge with human assistants**. This repo contains a production-style MVP scaffold with:
+ApplyFlow is an **AI-powered job application concierge with human assistants**.
 
-- `frontend/`: Next.js App Router + TypeScript + Tailwind CSS
-- `backend/`: Express + TypeScript + Mongoose + OpenAI Responses API integration
+## Tech stack
+- Frontend: Next.js App Router, TypeScript, Tailwind CSS
+- Backend: Node.js, Express.js, TypeScript, MongoDB + Mongoose, JWT, OpenAI Responses API
 
-## Folder structure
-
-```text
-.
-├── frontend/
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── (admin)/admin/...
-│   │   │   ├── (client)/dashboard/...
-│   │   │   ├── about/ faq/ login/ pricing/ register/
-│   │   │   ├── globals.css layout.tsx page.tsx
-│   │   ├── components/
-│   │   ├── hooks/ lib/ mock/ store/ types/
-├── backend/
-│   ├── src/
-│   │   ├── config controllers middleware models routes services types utils
-│   │   └── server.ts
-├── package.json
+## Project structure
+```
+/
+├── frontend
+└── backend
 ```
 
-## Quick start
-
-### 1) Install dependencies
-
+## Setup
+1. Install dependencies from repo root:
 ```bash
 npm install
 ```
-
-### 2) Configure backend env
-
+2. Configure environment files:
 ```bash
+cp frontend/.env.example frontend/.env.local
 cp backend/.env.example backend/.env
 ```
-
-Fill `MONGODB_URI`, `JWT_SECRET`, and optional `OPENAI_API_KEY`.
-
-### 3) Run dev servers
-
+3. Start both apps:
 ```bash
 npm run dev
 ```
 
-- Frontend: http://localhost:3000
-- Backend: http://localhost:4000
+## Important business rule
+ApplyFlow is **not** an auto-apply bot. AI is used for recommendations and drafting only; assistants manually submit applications and upload proof.
 
-## API summary
-
-- Auth: `/api/auth/register`, `/api/auth/login`, `/api/auth/me`
-- Profile: `/api/profile/me`
-- Resume: `/api/resume/upload`, `/api/resume/me`
-- AI: `/api/ai/analyze-resume`, `/api/ai/job-matches`, `/api/ai/generate-cover-letter`
-- Applications: `/api/applications/me`, `/api/applications`, `/api/applications/:id/status`, `/api/applications/:id/evidence`
-- Admin: `/api/admin/clients`, `/api/admin/clients/:id`, `/api/admin/clients/:id/assign-assistant`, `/api/admin/applications`, `/api/admin/applications/:id`
-
-## Notes
-
-- Manual-assistant workflow only (no auto-submitting bots).
-- Frontend currently uses polished mock data so product demos work before backend wiring.
-- OpenAI integration has fallback mock outputs when API key is not configured.
+## API Endpoints
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/auth/me`
+- `GET /api/profile/me`
+- `PUT /api/profile/me`
+- `POST /api/resume/upload`
+- `GET /api/resume/me`
+- `POST /api/ai/analyze-resume`
+- `POST /api/ai/job-matches`
+- `POST /api/ai/generate-cover-letter`
+- `GET /api/applications/me`
+- `POST /api/applications`
+- `PUT /api/applications/:id/status`
+- `POST /api/applications/:id/evidence`
+- `GET /api/admin/clients`
+- `GET /api/admin/clients/:id`
+- `PUT /api/admin/clients/:id/assign-assistant`
+- `GET /api/admin/applications`
+- `PUT /api/admin/applications/:id`

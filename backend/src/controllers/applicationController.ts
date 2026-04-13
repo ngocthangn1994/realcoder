@@ -1,24 +1,23 @@
 import { Request, Response } from 'express';
-import { Application } from '../models/Application';
-import { ApplicationEvidence } from '../models/ApplicationEvidence';
 import { asyncHandler } from '../utils/asyncHandler';
+import { addEvidence, createApplication, listApplicationsForUser, updateApplicationStatus } from '../services/applications/application.service';
 
 export const getMyApplications = asyncHandler(async (req: Request, res: Response) => {
-  const apps = await Application.find({ userId: req.user?.id }).sort({ createdAt: -1 });
-  res.json(apps);
+  const list = await listApplicationsForUser(req.user!.userId);
+  res.json(list);
 });
 
-export const createApplication = asyncHandler(async (req: Request, res: Response) => {
-  const app = await Application.create({ ...req.body, userId: req.user?.id });
-  res.status(201).json(app);
+export const createApplicationController = asyncHandler(async (req: Request, res: Response) => {
+  const created = await createApplication({ ...req.body, userId: req.user!.userId });
+  res.status(201).json(created);
 });
 
-export const updateApplicationStatus = asyncHandler(async (req: Request, res: Response) => {
-  const app = await Application.findByIdAndUpdate(req.params.id, { status: req.body.status, notes: req.body.notes }, { new: true });
-  res.json(app);
+export const updateApplicationStatusController = asyncHandler(async (req: Request, res: Response) => {
+  const updated = await updateApplicationStatus(String(req.params.id), req.body.status);
+  res.json(updated);
 });
 
-export const addEvidence = asyncHandler(async (req: Request, res: Response) => {
-  const evidence = await ApplicationEvidence.create({ ...req.body, applicationId: req.params.id, uploadedBy: req.user?.id });
+export const addEvidenceController = asyncHandler(async (req: Request, res: Response) => {
+  const evidence = await addEvidence({ ...req.body, applicationId: String(req.params.id), uploadedBy: req.user!.userId });
   res.status(201).json(evidence);
 });

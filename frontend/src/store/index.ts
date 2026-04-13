@@ -1,1 +1,3 @@
-export const store = { initialized: true };
+export const appStore = {
+  theme: 'light'
+};

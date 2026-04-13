@@ -1,10 +1,9 @@
 import { Router } from 'express';
-import { addEvidence, createApplication, getMyApplications, updateApplicationStatus } from '../controllers/applicationController';
+import { addEvidenceController, createApplicationController, getMyApplications, updateApplicationStatusController } from '../controllers/applicationController';
 
 const router = Router();
 router.get('/me', getMyApplications);
-router.post('/', createApplication);
-router.put('/:id/status', updateApplicationStatus);
-router.post('/:id/evidence', addEvidence);
-
+router.post('/', createApplicationController);
+router.put('/:id/status', updateApplicationStatusController);
+router.post('/:id/evidence', addEvidenceController);
 export default router;

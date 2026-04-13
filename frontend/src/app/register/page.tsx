@@ -1,3 +1,6 @@
-export default function RegisterPage() {
-  return <main className="mx-auto mt-20 max-w-md glass-card p-8"><h1 className="text-2xl font-bold">Create your ApplyFlow account</h1><form className="mt-6 space-y-3"><input className="w-full rounded-xl border p-3" placeholder="Full name" /><input className="w-full rounded-xl border p-3" placeholder="Email" /><input type="password" className="w-full rounded-xl border p-3" placeholder="Password" /><button className="w-full rounded-xl bg-brand-500 p-3 font-semibold text-white">Create account</button></form></main>;
+import { Navbar } from '@/components/layout/navbar';
+import { Footer } from '@/components/layout/footer';
+
+export default function Page() {
+  return <main><Navbar /><section className='mx-auto max-w-4xl px-6 py-16'><h1 className='text-3xl font-bold'>Create account</h1><p className='mt-4 text-slate-600'>ApplyFlow helps job seekers pair AI recommendations with trusted human assistants who manually apply and upload evidence.</p></section><Footer /></main>;
 }
