@@ -1,15 +1,19 @@
-import type { Metadata } from 'next';
 import './globals.css';
+import { ReactNode } from 'react';
+import { Navbar } from '@/components/Navbar';
 
-export const metadata: Metadata = {
-  title: 'ApplyFlow | AI + Human Job Concierge',
-  description: 'Premium job application concierge with AI insights and human assistants.'
+export const metadata = {
+  title: 'GoLink',
+  description: 'Internal URL shortener and browser keyword redirect tool'
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang='en'>
+      <body className='min-h-screen bg-slate-50 text-slate-900 antialiased'>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
