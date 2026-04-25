@@ -1,7 +1,19 @@
-export type ApplicationStatus = 'Suggested' | 'Pending' | 'Applied' | 'Interview' | 'Rejected' | 'Offer';
+export interface LinkItem {
+  _id: string;
+  title: string;
+  slug: string;
+  destinationUrl: string;
+  description?: string;
+  tags: string[];
+  clicks: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
-export interface AppMetric {
-  label: string;
-  value: string;
-  hint: string;
+export interface LinkPayload {
+  title?: string;
+  slug: string;
+  destinationUrl: string;
+  description?: string;
+  tags: string[];
 }
