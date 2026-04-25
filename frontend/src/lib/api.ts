@@ -1,10 +1,34 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:4000';
+import { Link, LinkPayload } from '@/types/link';
 
-export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_BASE_URL}${path}`, {
-    ...init,
-    headers: { 'Content-Type': 'application/json', ...(init?.headers || {}) }
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000';
+
+async function apiRequest<T>(path: string, options?: RequestInit): Promise<T> {
+  const response = await fetch(`${API_URL}${path}`, {
+    headers: { 'Content-Type': 'application/json' },
+    ...options,
+    cache: 'no-store'
   });
-  if (!res.ok) throw new Error(`Request failed: ${res.status}`);
-  return res.json() as Promise<T>;
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({ message: 'Request failed' }));
+    throw new Error(errorData.message ?? 'Request failed');
+  }
+
+  if (response.status === 204) {
+    return undefined as T;
+  }
+
+  return (await response.json()) as T;
+}
+
+export const linkApi = {
+  getAll: () => apiRequest<Link[]>('/api/links'),
+  create: (payload: LinkPayload) => apiRequest<Link>('/api/links', { method: 'POST', body: JSON.stringify(payload) }),
+  update: (id: string, payload: Partial<LinkPayload>) =>
+    apiRequest<Link>(`/api/links/${id}`, { method: 'PUT', body: JSON.stringify(payload) }),
+  remove: (id: string) => apiRequest<void>(`/api/links/${id}`, { method: 'DELETE' })
+};
+
+export function buildGoLink(slug: string): string {
+  return `${API_URL}/go/${slug}`;
 }

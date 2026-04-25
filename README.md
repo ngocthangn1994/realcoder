@@ -1,66 +1,118 @@
-# ApplyFlow MVP Starter
+# GoLink (Internal URL Shortener + Browser Keyword Redirect)
 
-ApplyFlow is an **AI-powered job application concierge with human assistants**. This repo contains a production-style MVP scaffold with:
+GoLink is a production-style monorepo with:
 
-- `frontend/`: Next.js App Router + TypeScript + Tailwind CSS
-- `backend/`: Express + TypeScript + Mongoose + OpenAI Responses API integration
+- **Backend**: Node.js + Express + TypeScript + MongoDB/Mongoose
+- **Frontend**: Next.js App Router + React + TypeScript + Tailwind CSS
 
-## Folder structure
+## Project structure
 
 ```text
-.
-├── frontend/
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── (admin)/admin/...
-│   │   │   ├── (client)/dashboard/...
-│   │   │   ├── about/ faq/ login/ pricing/ register/
-│   │   │   ├── globals.css layout.tsx page.tsx
-│   │   ├── components/
-│   │   ├── hooks/ lib/ mock/ store/ types/
-├── backend/
-│   ├── src/
-│   │   ├── config controllers middleware models routes services types utils
-│   │   └── server.ts
-├── package.json
+golink/
+  frontend/
+  backend/
 ```
 
-## Quick start
+## 1) Environment setup
 
-### 1) Install dependencies
+### Backend
+
+Create `backend/.env`:
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+CLIENT_URL=http://localhost:3000
+```
+
+### Frontend
+
+Create `frontend/.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+## 2) Install and run
 
 ```bash
 npm install
-```
-
-### 2) Configure backend env
-
-```bash
-cp backend/.env.example backend/.env
-```
-
-Fill `MONGODB_URI`, `JWT_SECRET`, and optional `OPENAI_API_KEY`.
-
-### 3) Run dev servers
-
-```bash
 npm run dev
 ```
 
 - Frontend: http://localhost:3000
-- Backend: http://localhost:4000
+- Backend: http://localhost:5000
 
-## API summary
+## 3) Backend API
 
-- Auth: `/api/auth/register`, `/api/auth/login`, `/api/auth/me`
-- Profile: `/api/profile/me`
-- Resume: `/api/resume/upload`, `/api/resume/me`
-- AI: `/api/ai/analyze-resume`, `/api/ai/job-matches`, `/api/ai/generate-cover-letter`
-- Applications: `/api/applications/me`, `/api/applications`, `/api/applications/:id/status`, `/api/applications/:id/evidence`
-- Admin: `/api/admin/clients`, `/api/admin/clients/:id`, `/api/admin/clients/:id/assign-assistant`, `/api/admin/applications`, `/api/admin/applications/:id`
+- `GET /api/health`
+- `POST /api/links`
+- `GET /api/links`
+- `GET /api/links/:slug`
+- `PUT /api/links/:id`
+- `DELETE /api/links/:id`
+- `GET /go/:slug` (redirect and increments click count)
 
-## Notes
+## 4) curl test examples
 
-- Manual-assistant workflow only (no auto-submitting bots).
-- Frontend currently uses polished mock data so product demos work before backend wiring.
-- OpenAI integration has fallback mock outputs when API key is not configured.
+### Health check
+
+```bash
+curl http://localhost:5000/api/health
+```
+
+### Create sample slug `sam`
+
+```bash
+curl -X POST http://localhost:5000/api/links \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Sam\'s Club",
+    "slug": "sam",
+    "destinationUrl": "https://www.samsclub.com/",
+    "description": "Sam\'s Club homepage",
+    "tags": ["shopping", "retail"]
+  }'
+```
+
+### List all links
+
+```bash
+curl http://localhost:5000/api/links
+```
+
+### Test redirect
+
+```bash
+curl -i http://localhost:5000/go/sam
+```
+
+Expect a `302` redirect to the saved destination URL.
+
+## 5) Chrome keyword shortcut setup
+
+- **Name**: GoLink
+- **Shortcut**: go
+- **URL**: `http://localhost:5000/go/%s`
+
+Then type in address bar:
+
+```text
+go + Tab + sam + Enter
+```
+
+Your browser hits `http://localhost:5000/go/sam` and GoLink redirects.
+
+## 6) Scripts
+
+### Backend
+
+- `npm run dev -w backend`
+- `npm run build -w backend`
+- `npm run start -w backend`
+
+### Frontend
+
+- `npm run dev -w frontend`
+- `npm run build -w frontend`
+- `npm run start -w frontend`

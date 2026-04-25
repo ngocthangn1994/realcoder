@@ -1,61 +1,40 @@
-import { Footer } from '@/components/layout/footer';
-import { Navbar } from '@/components/layout/navbar';
-import { SectionTitle } from '@/components/marketing/section-title';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { trustMetrics } from '@/mock/data';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
-    <div>
-      <Navbar />
-      <main className="mx-auto max-w-6xl px-6 py-12">
-        <section className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div>
-            <Badge label="AI-powered • Human-assisted" className="mb-4 bg-brand-50 text-brand-700" />
-            <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-6xl">Land better roles faster with your personal job concierge.</h1>
-            <p className="mt-5 max-w-xl text-lg text-slate-600">ApplyFlow pairs intelligent matching with dedicated human assistants who manually apply on your behalf and keep proof in one premium dashboard.</p>
-            <div className="mt-8 flex gap-3">
-              <Button href="/register" className="bg-brand-500 text-white">Start my concierge</Button>
-              <Button href="/pricing" className="border border-slate-300 bg-white text-slate-800">View plans</Button>
-            </div>
-          </div>
-          <div className="glass-card p-6">
-            <p className="text-sm text-slate-500">Live campaign preview</p>
-            <div className="mt-4 space-y-3">
-              {['Profile 96% complete', '18 applications submitted this week', '3 interview callbacks active'].map((i) => (
-                <div key={i} className="rounded-xl border border-slate-200 p-3 text-sm">{i}</div>
-              ))}
-            </div>
-          </div>
-        </section>
+    <main className='mx-auto max-w-6xl px-6 py-16'>
+      <section className='rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 p-10 text-white shadow-xl'>
+        <p className='text-sm uppercase tracking-[0.2em] text-indigo-200'>Internal productivity tool</p>
+        <h1 className='mt-4 text-4xl font-bold leading-tight'>GoLink: your team&apos;s fast URL launcher</h1>
+        <p className='mt-4 max-w-2xl text-slate-200'>
+          Create memorable slugs like <strong>sam</strong>, <strong>docs</strong>, and <strong>payroll</strong>. Then type
+          your browser keyword and slug to jump instantly.
+        </p>
+        <div className='mt-8 flex flex-wrap gap-3'>
+          <Link href='/dashboard' className='rounded-lg bg-white px-4 py-2 font-semibold text-slate-900'>
+            Open dashboard
+          </Link>
+          <span className='rounded-lg border border-white/30 px-4 py-2 text-sm'>Backend redirect route: GET /go/:slug</span>
+        </div>
+      </section>
 
-        <section className="mt-14 grid gap-4 md:grid-cols-4">
-          {trustMetrics.map((metric) => (
-            <div className="glass-card p-5" key={metric.label}>
-              <p className="text-2xl font-bold">{metric.value}</p>
-              <p className="mt-1 text-sm font-semibold">{metric.label}</p>
-              <p className="mt-2 text-xs text-slate-500">{metric.hint}</p>
-            </div>
-          ))}
-        </section>
-
-        <section className="mt-20">
-          <SectionTitle eyebrow="How it works" title="A trusted workflow built for serious job seekers" desc="We combine AI guidance with real assistants so every application stays thoughtful, accurate, and trackable." />
-          <div className="grid gap-4 md:grid-cols-5">{['Fill profile once', 'Upload resume', 'Get AI matches', 'Assistant applies manually', 'Track proofs + statuses'].map((step, idx) => <div key={step} className="glass-card p-4 text-sm"><p className="mb-2 text-xs text-brand-700">Step {idx + 1}</p><p className="font-medium">{step}</p></div>)}</div>
-        </section>
-
-        <section className="mt-20">
-          <SectionTitle eyebrow="Pricing" title="Concierge plans for every stage" desc="Transparent plans with dedicated support and manual application quality control." />
-          <div className="grid gap-4 md:grid-cols-3">{[
-            { name: 'Starter', price: '$149/mo', feature: '40 applications' },
-            { name: 'Growth', price: '$299/mo', feature: '120 applications' },
-            { name: 'Premium', price: '$549/mo', feature: 'Unlimited + priority' }
-          ].map((plan) => <div key={plan.name} className="glass-card p-6"><p className="font-semibold">{plan.name}</p><p className="mt-3 text-3xl font-bold">{plan.price}</p><p className="mt-2 text-sm text-slate-500">{plan.feature}</p><Button className="mt-5 w-full bg-brand-500 text-white">Choose {plan.name}</Button></div>)}
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+      <section className='mt-10 grid gap-6 rounded-2xl border border-slate-200 bg-white p-8 md:grid-cols-2'>
+        <div>
+          <h2 className='text-xl font-semibold'>Chrome shortcut setup</h2>
+          <ol className='mt-3 list-decimal space-y-2 pl-5 text-sm text-slate-600'>
+            <li>Name: GoLink</li>
+            <li>Shortcut: go</li>
+            <li>URL: http://localhost:5000/go/%s</li>
+          </ol>
+        </div>
+        <div>
+          <h2 className='text-xl font-semibold'>How to use</h2>
+          <p className='mt-3 text-sm text-slate-600'>
+            In the address bar type: <strong>go + Tab + sam + Enter</strong>. Your browser opens
+            http://localhost:5000/go/sam and the backend redirects to the saved destination URL.
+          </p>
+        </div>
+      </section>
+    </main>
   );
 }

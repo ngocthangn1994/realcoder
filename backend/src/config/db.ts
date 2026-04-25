@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import { env } from './env';
 
-export const connectDB = async () => {
+export async function connectDB(): Promise<void> {
   await mongoose.connect(env.MONGODB_URI);
-  console.log('MongoDB connected');
-};
+  // Beginner-friendly log so you can confirm DB connectivity quickly.
+  console.log('✅ Connected to MongoDB');
+}
