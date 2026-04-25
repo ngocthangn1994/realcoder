@@ -1,30 +1,40 @@
 import express from 'express';
 import cors from 'cors';
 import { env } from './config/env';
-import { connectDB } from './config/db';
-import { requireAuth } from './middleware/authMiddleware';
+import { connectDatabase } from './config/db';
+import linkRoutes from './routes/linkRoutes';
+import { notFoundMiddleware } from './middleware/notFoundMiddleware';
 import { errorMiddleware } from './middleware/errorMiddleware';
-import authRoutes from './routes/authRoutes';
-import profileRoutes from './routes/profileRoutes';
-import resumeRoutes from './routes/resumeRoutes';
-import aiRoutes from './routes/aiRoutes';
-import applicationRoutes from './routes/applicationRoutes';
-import adminRoutes from './routes/adminRoutes';
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+async function bootstrap(): Promise<void> {
+  await connectDatabase();
 
-app.get('/health', (_req, res) => res.json({ ok: true }));
-app.use('/api/auth', authRoutes);
-app.use('/api/profile', requireAuth, profileRoutes);
-app.use('/api/resume', requireAuth, resumeRoutes);
-app.use('/api/ai', requireAuth, aiRoutes);
-app.use('/api/applications', requireAuth, applicationRoutes);
-app.use('/api/admin', requireAuth, adminRoutes);
+  const app = express();
 
-app.use(errorMiddleware);
+  app.use(
+    cors({
+      origin: env.clientUrl
+    })
+  );
 
-connectDB().then(() => {
-  app.listen(Number(env.PORT), () => console.log(`API running on :${env.PORT}`));
+  app.use(express.json());
+
+  // Request logger for development visibility.
+  app.use((req, _res, next) => {
+    console.log(`[http] ${req.method} ${req.originalUrl}`);
+    next();
+  });
+
+  app.use(linkRoutes);
+  app.use(notFoundMiddleware);
+  app.use(errorMiddleware);
+
+  app.listen(env.port, () => {
+    console.log(`[server] GoLink backend running on http://localhost:${env.port}`);
+  });
+}
+
+bootstrap().catch((error) => {
+  console.error('[server] Failed to start backend', error);
+  process.exit(1);
 });
